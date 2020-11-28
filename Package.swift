@@ -43,7 +43,8 @@ let package = Package(
                 .product(name: "GTMSessionFetcherCore", package: "GTMSessionFetcher"),
                 .product(name: "GTMAppAuth", package: "GTMAppAuth"),
                 .target(name: "GoogleSignInBinary", condition: .when(platforms: .some([ .iOS ])))
-            ]
+            ],
+            resources: [ .process("Resources/Fonts") ]
         ),
         .binaryTarget(
             name: "GoogleSignInBinary",
