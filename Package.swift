@@ -13,13 +13,12 @@ let package = Package(
         .watchOS(.v6)
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "GoogleSignIn",
-            targets: ["SwiftGoogleSignIn"]),
+            targets: [ "SwiftGoogleSignIn" ]
+        )
     ],
     dependencies: [
-         // Dependencies declare other packages that this package depends on.
         .package(
             name: "GTMSessionFetcher",
             url: "https://github.com/google/gtm-session-fetcher.git",
@@ -37,30 +36,16 @@ let package = Package(
         )
     ],
     targets: [
-//         Targets are the basic building blocks of a package. A target can define a module or a test suite.
-//         Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SwiftGoogleSignIn",
             dependencies: [
-                .target(name: "GoogleSignInWrapper", condition: .when(platforms: .some([.iOS]))),
-            ]),
-        .target(
-            name: "GoogleSignInWrapper",
-            dependencies: [
-                .product(name: "GTMSessionFetcherCore", package: "GTMSessionFetcher"),
-//                .product(name: "AppAuthCore", package: "AppAuth"),
                 "AppAuth",
+                .product(name: "GTMSessionFetcherCore", package: "GTMSessionFetcher"),
                 .product(name: "GTMAppAuth", package: "GTMAppAuth"),
-                .target(name: "GoogleSignInBinary", condition: .when(platforms: .some([.iOS])))
+                .target(name: "GoogleSignInBinary", condition: .when(platforms: .some([ .iOS ])))
             ],
-            resources: [
-                .process("Images"),
-                .process("Fonts"),
-                .process("Resources"),
-            ]),
-        .testTarget(
-            name: "GoogleSignInTests",
-            dependencies: ["SwiftGoogleSignIn"]),
+            resources: [ .process("Resources") ]
+        ),
         .binaryTarget(
             name: "GoogleSignInBinary",
             path: "artifacts/GoogleSignIn.xcframework"
