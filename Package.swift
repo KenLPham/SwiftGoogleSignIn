@@ -44,7 +44,7 @@ let package = Package(
                 .product(name: "GTMAppAuth", package: "GTMAppAuth"),
                 .target(name: "GoogleSignInBinary", condition: .when(platforms: .some([ .iOS ])))
             ],
-            resources: [ .process("Resources/Fonts") ]
+            resources: [ .process("Resources") ]
         ),
         .binaryTarget(
             name: "GoogleSignInBinary",

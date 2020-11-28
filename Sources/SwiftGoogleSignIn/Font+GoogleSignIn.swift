@@ -18,4 +18,17 @@ public extension UIFont {
     static func robotoBold (size fontSize: CGFloat) -> UIFont? {
         UIFont(name: "Roboto-Bold", size: fontSize)
     }
+    
+    static func register () {
+        guard let pathForResourceString = Bundle.module.path(forResource: "Roboto-Bold.ttf", ofType: nil),
+        let fontData = NSData(contentsOfFile: pathForResourceString),
+        let dataProvider = CGDataProvider(data: fontData),
+        let fontRef = CGFont(dataProvider) else { return }
+
+        var errorRef: Unmanaged<CFError>? = nil
+
+        if !CTFontManagerRegisterGraphicsFont(fontRef, &errorRef) {
+            fatalError("Failed to register font: \(errorRef.debugDescription)")
+        }
+    }
 }
